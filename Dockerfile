@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install production dependencies.
 RUN npm install --production
 
+# Install @types/node as a development dependency
+RUN npm install --save-dev @types/node
+
 # Globally install NestJS CLI
 RUN npm install -g @nestjs/cli
 
