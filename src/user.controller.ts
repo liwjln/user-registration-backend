@@ -1,9 +1,11 @@
 import {
   Controller,
   Post,
+  Get,
   Body,
   HttpException,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
@@ -30,5 +32,10 @@ export class UserController {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
     return { message: 'Login successful', token };
+  }
+
+  @Get('profile')
+  async getProfile(@Req() req) {
+    return { user: req.user };
   }
 }

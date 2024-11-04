@@ -32,9 +32,11 @@ export class UserService {
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   }
 
-  async verifyToken(token: string): Promise<any> {
+  async verifyToken(token: string): Promise<User> {
     try {
-      return jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await this.userModel.findById(decoded.sub);
+      return user;
     } catch (err) {
       return null;
     }
